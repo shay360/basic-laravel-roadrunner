@@ -22,3 +22,7 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# RoadRunner
+/rr
+.rr.yaml.lock

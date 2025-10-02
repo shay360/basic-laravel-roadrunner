@@ -9,6 +9,115 @@
 
 ## About Laravel
 
+This is a Laravel 12 application configured with Laravel Octane and RoadRunner for high-performance request handling.
+
+## Laravel Octane with RoadRunner
+
+This project is configured to use Laravel Octane with RoadRunner as the application server. RoadRunner provides significant performance improvements over traditional PHP-FPM by keeping the application in memory.
+
+### Prerequisites
+
+- PHP 8.2 or higher
+- Composer
+- RoadRunner binary (included via composer dependencies)
+
+### Installation
+
+1. Clone the repository
+2. Install dependencies:
+
+```bash
+composer install
+```
+
+**Note:** If the automatic RoadRunner binary download fails due to GitHub API rate limits, you can manually download it using:
+
+```bash
+./download-rr.sh
+```
+
+3. Copy the environment file:
+
+```bash
+cp .env.example .env
+```
+
+4. Generate application key:
+
+```bash
+php artisan key:generate
+```
+
+5. Create and configure your database (if using SQLite, it's already configured):
+
+```bash
+touch database/database.sqlite
+php artisan migrate
+```
+
+### Running the Application
+
+#### With Octane (Recommended)
+
+Start the Octane server with RoadRunner:
+
+```bash
+php artisan octane:start
+```
+
+The application will be available at `http://localhost:8000`
+
+#### With Hot Reloading (Development)
+
+For development with automatic reloading on file changes:
+
+```bash
+php artisan octane:start --watch
+```
+
+#### Production
+
+For production, you can specify the number of workers and other options:
+
+```bash
+php artisan octane:start --server=roadrunner --host=0.0.0.0 --port=8000 --workers=4
+```
+
+#### Traditional PHP Server (Alternative)
+
+If you prefer the traditional approach:
+
+```bash
+php artisan serve
+```
+
+### Octane Commands
+
+- `php artisan octane:start` - Start the Octane server
+- `php artisan octane:stop` - Stop the Octane server
+- `php artisan octane:reload` - Reload the Octane workers
+- `php artisan octane:status` - Check the Octane server status
+
+### Configuration
+
+The Octane configuration can be found in `config/octane.php`. The RoadRunner configuration is in `.rr.yaml`.
+
+You can customize these settings based on your needs:
+- Number of workers
+- Memory limits
+- File watching patterns
+- Maximum execution time
+
+### Performance Benefits
+
+Using Octane with RoadRunner provides:
+- **Faster response times**: Application stays in memory between requests
+- **Lower resource usage**: Reduced overhead from PHP process startup
+- **Better throughput**: Handle more concurrent requests
+- **Improved scalability**: Better performance under load
+
+## About Laravel
+
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
 - [Simple, fast routing engine](https://laravel.com/docs/routing).
